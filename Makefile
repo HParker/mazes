@@ -1,2 +1,2 @@
 default:
-	gcc -o maze main.c `pkg-config --cflags --libs sdl2`
+	gcc -Wall -Wextra -o maze main.c `pkg-config --cflags --libs sdl2`
