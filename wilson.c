@@ -35,10 +35,10 @@ void wilson(Map * map) {
     // render path
     renderMap(map);
 
-    debugRenderCursor(map, firstVisit->x, firstVisit->y, 100,100,100);
+    debugRenderCursor(firstVisit->x, firstVisit->y, 100,100,100);
 
     for (int i = 0; i <= pathIndex; i++) {
-      debugRenderCursor(map, path[i]->x, path[i]->y,50,100,20);
+      debugRenderCursor(path[i]->x, path[i]->y,50,100,20);
     }
 
     endRender();

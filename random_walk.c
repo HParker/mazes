@@ -3,9 +3,6 @@
 
 void random_walk(Map * map) {
    // I am lazy, we can probably know how many neighbors there will be ahead of time
-  Tile * neighborTiles[10];
-  Direction neighborDir[10];
-
   int visitedCount = 0;
   Tile * tile = randomTile(map);
   Tile * neighborTile = NULL;

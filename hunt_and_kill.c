@@ -34,7 +34,7 @@ void hunt_and_kill(Map * map) {
             // render path
             renderMap(map);
 
-            debugRenderCursor(map, x, y, 222, 222, 222);
+            debugRenderCursor(x, y, 222, 222, 222);
 
             endRender();
             delay(100);
@@ -73,12 +73,12 @@ void hunt_and_kill(Map * map) {
       // render path
       renderMap(map);
 
-      debugRenderCursor(map, path[pathIndex]->x, path[pathIndex]->y, 0, 100, 0);
+      debugRenderCursor(path[pathIndex]->x, path[pathIndex]->y, 0, 100, 0);
 
       for (int x = 0; x < map->width; x++) {
         for (int y = 0; y < map->height; y++) {
           if (visited[(y * map->width) + x] == 1) {
-            debugRenderCursor(map, x, y, 222, 222, 222);
+            debugRenderCursor(x, y, 222, 222, 222);
           }
         }
       }

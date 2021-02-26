@@ -63,7 +63,7 @@ typedef enum Direction
 
 extern void debugRenderPuzzle(Map * map, int * visited, int x, int y);
 
-extern void debugRenderCursor(Map * map, int cursorX, int cursorY, int r, int b, int g);
+extern void debugRenderCursor(int cursorX, int cursorY, int r, int b, int g);
 extern void startRender();
 extern void endRender();
 extern void renderMap(Map * map);
