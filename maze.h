@@ -3,7 +3,7 @@
 
 #define WINDOW_SIZE 840
 #define TILE_SIZE 20
-#define MAP_SIZE 10
+#define MAP_SIZE 20
 
 // 0 0 0 0 1 1 1 1
 #define COMPLETELY_BLOCKED 15
@@ -22,6 +22,8 @@
 typedef struct Tile {
   int x;
   int y;
+  int distance;
+  int unreachable;
   char blocks;
   char connections;
   // 0 0 0 0 0 0 0 0
@@ -60,6 +62,8 @@ typedef enum Direction
   } Direction;
 
 
+extern int countDeadends(Map * map);
+
 
 extern void debugRenderPuzzle(Map * map, int * visited, int x, int y);
 
@@ -69,10 +73,14 @@ extern void endRender();
 extern void renderMap(Map * map);
 extern void delay(int ms);
 
+extern int accessableTiles(Map * map);
 extern Tile * randomTile(Map * map);
 extern Tile * randomUnvisitedTile(Map * map);
 extern Direction randomNeighbor(Map * map, Tile * tile, Tile ** neighborTile);
 extern Direction randomUnvisitedNeighbor(Map * map, Tile * tile, int * visited, Tile ** neighborTile);
 extern Direction randomVisitedNeighbor(Map * map, Tile * tile, int * visited, Tile ** neighborTile);
+
+// Path finding
+extern Tile * distanceFrom(Map * map, int x, int y);
 
 #endif

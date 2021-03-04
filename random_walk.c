@@ -13,7 +13,8 @@ void random_walk(Map * map) {
     visited[i] = 0;
   }
 
-  while (visitedCount < (map->width * map->height)) {
+  int at = accessableTiles(map);
+  while(visitedCount < at) {
     dir = randomNeighbor(map, tile, &neighborTile);
 
     if (visited[(neighborTile->y * map->width) + neighborTile->x] == 0) {

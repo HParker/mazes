@@ -18,7 +18,8 @@ void wilson(Map * map) {
   visited[(firstVisit->y * map->width) + firstVisit->x] = 1;
   visitedCount++;
 
-  while (visitedCount < (map->width * map->height)) {
+  int at = accessableTiles(map);
+  while(visitedCount < at) {
     if (done) {
       pathIndex = 0;
       path[pathIndex] = randomTile(map);

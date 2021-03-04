@@ -1,7 +1,7 @@
 #include "maze.h"
 #include <stdlib.h>
 
-void hunt_and_kill(Map * map) {
+void backtrack(Map * map) {
   int visitedCount = 0;
   int visited[(map->width * map->height)];
   for (int i = 0; i < (map->width * map->height); i++) {
@@ -20,62 +20,41 @@ void hunt_and_kill(Map * map) {
   visitedCount++;
   pathIndex++;
 
-  int at = accessableTiles(map);
-  while(visitedCount < at) {
+  while (visitedCount < (map->width * map->height)) {
     pathDir[pathIndex] = randomUnvisitedNeighbor(map, tile, visited, &path[pathIndex]);
 
     if (pathDir[pathIndex] == NO_DIRECTION) {
-      // hunt
-      pathIndex = 0;
-      int found = 0;
-      for (int y = 0; y < map->height; y++) {
-        for (int x = 0; x < map->width; x++) {
-          if (found == 0 && visited[(y * map->width) + x] == 0) {
-            startRender();
-            // render path
-            renderMap(map);
-
-            debugRenderCursor(x, y, 222, 222, 222);
-
-            endRender();
-            delay(100);
-
-            pathDir[pathIndex] = randomVisitedNeighbor(map, &map->tiles[(y * map->width) + x], visited, &path[pathIndex]);
-            if (pathDir[pathIndex] == NO_DIRECTION) {
-              // continue..
-            } else {
-              // connect and switch modes
-
-              tile = &map->tiles[(y * map->width) + x];
-              visited[(y * map->width) + x] = 1;
-              visitedCount++;
-
-              neighborTile = path[pathIndex];
-              Direction dir = pathDir[pathIndex];
-              if (dir == NORTH) {
-                neighborTile->connections |= DOWN;
-              } else if (dir == SOUTH) {
-                tile->connections |= DOWN;
-              } else if (dir == EAST) {
-                tile->connections |= RIGHT;
-              } else if (dir == WEST) {
-                neighborTile->connections |= RIGHT;
-              }
-              found = 1;
-            }
-          }
-        }
+      // backtrack
+      while (pathDir[pathIndex] == NO_DIRECTION && pathIndex > 0) {
+        pathIndex--;
+        tile = path[pathIndex];
+        pathDir[pathIndex] = randomUnvisitedNeighbor(map, tile, visited, &path[pathIndex + 1]);
       }
+      pathIndex++;
+
+      neighborTile = path[pathIndex];
+      visited[(neighborTile->y * map->width) + neighborTile->x] = 1;
+      visitedCount++;
+
+      // TODO: this sucks, since we backtracked, we assign the wrong direction before here
+      Direction dir = pathDir[pathIndex - 1];
+      if (dir == NORTH) {
+        neighborTile->connections |= DOWN;
+      } else if (dir == SOUTH) {
+        tile->connections |= DOWN;
+      } else if (dir == EAST) {
+        tile->connections |= RIGHT;
+      } else if (dir == WEST) {
+        neighborTile->connections |= RIGHT;
+      }
+
       tile = path[pathIndex];
       pathIndex++;
     } else {
-
-      startRender();
       // render path
+      startRender();
       renderMap(map);
-
       debugRenderCursor(path[pathIndex]->x, path[pathIndex]->y, 0, 100, 0);
-
       for (int x = 0; x < map->width; x++) {
         for (int y = 0; y < map->height; y++) {
           if (visited[(y * map->width) + x] == 1) {
@@ -83,11 +62,10 @@ void hunt_and_kill(Map * map) {
           }
         }
       }
-
       endRender();
-      delay(100);
+      delay(1);
 
-      // kill
+
       visited[(path[pathIndex]->y * map->width) + path[pathIndex]->x] = 1;
       visitedCount++;
 
