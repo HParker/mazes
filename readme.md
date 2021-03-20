@@ -1,4 +1,8 @@
+
 # Mazes
+
+![maze-generation](https://user-images.githubusercontent.com/4482399/111885297-2e469c80-8984-11eb-83ec-f781c5730e16.gif)
+
 
 A collection of mazes and their algorithms implemented using C and SDL
 
