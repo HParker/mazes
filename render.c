@@ -13,7 +13,7 @@ void initRenderer() {
     fprintf(stderr, "ERROR Initializing SDL2\n");
   }
 
-  window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_SIZE, WINDOW_SIZE, SDL_WINDOW_SHOWN);
+  window = SDL_CreateWindow("Mazes", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_SIZE, WINDOW_SIZE, SDL_WINDOW_SHOWN);
   if (window == NULL) {
     fprintf(stderr, "ERROR making window\n");
   }
@@ -63,7 +63,7 @@ void renderTile(Tile * tile, int x, int y) {
     SDL_RenderDrawLine(renderer, x2, y1, x2, y2);
   }
   if (tile->unreachable == 1) {
-    debugRenderCursor(x, y, 200, 200, 255);
+    debugRenderCursor(x, y, 0, 0, 0);
   }
 }
 
