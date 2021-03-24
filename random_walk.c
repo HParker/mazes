@@ -31,7 +31,12 @@ void random_walk(Map * map) {
       visited[(neighborTile->y * map->width) + neighborTile->x] = 1;
       visitedCount++;
     }
-    debugRenderPuzzle(map, visited, tile->x, tile->y);
     tile = neighborTile;
+
+    startRender();
+    renderMap(map);
+    debugRenderCursor(tile->x, tile->y, 0, 100, 0);
+    endRender();
+    delay(1);
   }
 }

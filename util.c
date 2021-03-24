@@ -231,7 +231,7 @@ Tile * distanceFrom(Map * map, int x, int y) {
     distance++;
     //draw
     debugRenderPuzzle(map, visited, -1, -1);
-    delay(100);
+    delay(1);
   }
   return lastTouchedTile;
 }

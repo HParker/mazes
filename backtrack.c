@@ -65,7 +65,6 @@ void backtrack(Map * map) {
       endRender();
       delay(1);
 
-
       visited[(path[pathIndex]->y * map->width) + path[pathIndex]->x] = 1;
       visitedCount++;
 

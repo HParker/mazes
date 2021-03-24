@@ -28,6 +28,12 @@ void sidewinder_map(Map * map) {
         tile->connections = RIGHT;
         tilesInRun++;
       }
+
+      startRender();
+      renderMap(map);
+      debugRenderCursor(x, y, 0, 100, 0);
+      endRender();
+      delay(1);
     }
   }
 }
